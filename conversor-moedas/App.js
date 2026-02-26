@@ -5,8 +5,23 @@ import { Input } from './src/components/Input';
 import { colors } from './src/styles/colors';
 import { currencies } from './src/constants/currencies';
 import { ResultCard } from './src/components/ResultCard';
+import { exchangeRateApi } from './src/services/api';
+import { useState } from 'react';
 
 export default function App() {
+
+  const [amount, setAmount] = useState('')
+  const [fromCurrency, setFromCurrency] = useState('USD')
+  const [toCurrency, setToCurrency] = useState('BRL')
+  const [result, setResult] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [exchangeRate, setExchangeRate] = useState(null)
+
+  async function fetchExchangeRate() {
+    const data = await exchangeRateApi('BRL')
+    console.log(data)
+  }
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -32,6 +47,7 @@ export default function App() {
                   variant='primary'
                   key={currency.code}
                   currency={currency}
+                  onPress={() => setFromCurrency(currency.code)}
                 />
               ))}
             </View>
@@ -51,13 +67,18 @@ export default function App() {
                   variant='secondary'
                   key={currency.code}
                   currency={currency}
+                  onPress={() => setToCurrency(currency.code)}
+                  isSelected={toCurrency === currency.code}
                 />
               ))}
             </View>
 
           </View>
 
-          <TouchableOpacity style={styles.convertButton}>
+          <TouchableOpacity
+            style={styles.convertButton}
+            onPress={fetchExchangeRate}
+          >
             <Text style={styles.swapButtonText}>
               Converter
             </Text>

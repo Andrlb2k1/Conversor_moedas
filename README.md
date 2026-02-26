@@ -27,3 +27,5 @@ https://expo.dev/
 https://devclub.notion.site/85-Desenvolvendo-seu-primeiro-App-Mobile-1df3f245f933804997c1c08395506fc2
 
 https://symbl.cc/pt/
+
+https://www.exchangerate-api.com/
